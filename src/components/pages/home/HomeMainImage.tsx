@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import backgrounImage from '../../../../public/assets/blog_background_image.jpg'
+import AddPost from './AddPost'
 
 export default function HomeMainImage() {
     const src = backgrounImage
@@ -11,9 +12,11 @@ export default function HomeMainImage() {
                 alt="Blog Background"
                 fill
                 className="object-scale-down"
+                priority
             />
-            <div className="absolute inset-0 flex items-end justify-end bg-black bg-opacity-50">
-                <div className="w-[250px] text-end p-4 text-white font-bold text-3xl lg:text-4xl tracking-wide shadow-md">
+            <div className="absolute inset-0 flex flex-row items-end justify-between p-5 bg-black bg-opacity-50">
+                <AddPost />
+                <div className="w-[250px] text-end text-white font-bold text-3xl lg:text-4xl tracking-wide">
                     My Blog
                 </div>
             </div>

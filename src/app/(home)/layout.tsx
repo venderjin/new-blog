@@ -4,7 +4,7 @@ export default async function HomeLayout({
     children: React.ReactNode
 }) {
     return (
-        <div className="w-full md:max-w-[1000px] mx-auto overflow-x-auto">
+        <div className="w-full h-screen md:max-w-[900px] mx-auto overflow-auto">
             {children}
         </div>
     )
