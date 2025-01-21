@@ -29,7 +29,7 @@ const loadInitialPosts = (): Post[] => {
     const initialPosts: Post[] = [
         {
             id: 1,
-            title: '첫 번째 게시물',
+            title: '123123123 123123123 123123123 123123123 123123123 123123123',
             content: '이것은 첫 번째 게시물입니다.',
             created_at: new Date().toLocaleString('ko-KR', {
                 year: 'numeric',
