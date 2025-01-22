@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import backgrounImage from '../../../../public/assets/blog_background_image.jpg'
-import AddPost from './AddPost'
+import AddPost from '@/components/pages/post/AddPost'
 
 export default function HomeMainImage() {
     const src = backgrounImage

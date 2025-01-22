@@ -1,0 +1,16 @@
+import PostHeader from '@/components/pages/post/PostHeader'
+
+export default async function BlogPostPage({
+    params,
+}: {
+    params: Promise<{ postId: string }>
+}) {
+    const postId = (await params).postId
+
+    return (
+        <div className="flex flex-col bg-red-200 pt-3">
+            <PostHeader />
+            <h1>Post ID: {postId}</h1>
+        </div>
+    )
+}

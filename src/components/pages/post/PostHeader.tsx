@@ -2,11 +2,10 @@
 
 import React, { useState } from 'react'
 
-import HomeMainImage from '@/components/pages/home/HomeMainImage'
 import HomeSearch from '@/components/pages/home/HomeSearch'
-import HomePostList from '@/components/pages/home/HomePostList'
+import PostList from '@/components/pages/post/PostList'
 
-export default function HomePage() {
+export default function PostHeader() {
     const [search, setSearch] = useState<string>('')
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -14,10 +13,9 @@ export default function HomePage() {
     }
 
     return (
-        <div className="flex flex-col">
-            <HomeMainImage />
+        <div className="flex flex-col justify-center h-[300px]">
             <HomeSearch search={search} onChange={onChange} />
-            <HomePostList search={search} />
+            <PostList search={search} />
         </div>
     )
 }

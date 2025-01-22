@@ -1,3 +1,9 @@
+import { useState, useEffect } from 'react'
+import Link from 'next/link'
+
+import DeletePost from '@/components/pages/post/DeletePost'
+import SortPost from '@/components/pages/post/SortPost'
+
 import {
     Table,
     TableBody,
@@ -6,13 +12,12 @@ import {
     TableHeader,
     TableRow,
 } from '@/components/ui/table'
-import { useState, useEffect } from 'react'
-import Link from 'next/link'
+
 import { usePostStore } from '@/store/usePostStore'
-import DeletePost from '@/components/pages/post/DeletePost'
 
 export default function BoardList({ search }: { search: string }) {
     const [maxLength, setMaxLength] = useState(20)
+    const [sort, setSort] = useState<string>('basic')
 
     const posts = usePostStore((state) => state.posts)
     const filteredPosts = posts.filter((post) =>
@@ -20,19 +25,39 @@ export default function BoardList({ search }: { search: string }) {
     )
 
     useEffect(() => {
-        // 윈도우 크기에 따라 제목 길이 조정
-        const handleResize = () => {
-            setMaxLength(window.innerWidth > 768 ? 40 : 15)
-        }
+        if (typeof window === 'undefined') return
+
+        const handleResize = () =>
+            setMaxLength(window.innerWidth > 768 ? 50 : 12)
 
         // 초기 설정 및 리스너 추가
         handleResize()
         window.addEventListener('resize', handleResize)
 
-        // 컴포넌트 언마운트 시 이벤트 리스너 제거
         return () => window.removeEventListener('resize', handleResize)
     }, [])
 
+    // 정렬 로직
+    const parseDate = (dateString: string) =>
+        new Date(
+            dateString
+                .replace(/[년월]/g, '-')
+                .replace('일', '')
+                .trim(),
+        ).getTime()
+
+    const sortedPosts = [...filteredPosts].sort((a, b) => {
+        switch (sort) {
+            case 'basic':
+                return a.id - b.id // 기본순 (ID 오름차순)
+            case 'latest':
+                return parseDate(b.created_at) - parseDate(a.created_at) // 최신순
+            case 'title':
+                return a.title.localeCompare(b.title) // 제목순 (가나다순)
+            default:
+                return 0
+        }
+    })
     return (
         <div className="w-full max-h-[calc(100dvh-320px)] overflow-y-auto">
             <style jsx>{`
@@ -44,32 +69,29 @@ export default function BoardList({ search }: { search: string }) {
             <Table>
                 <TableHeader>
                     <TableRow>
-                        <TableHead className="text-center w-3/5 md:w-4/5 py-3">
+                        <TableHead className="text-center w-3/5 md:w-4/5 h-[50px] pl-8">
+                            <SortPost sort={sort} setSort={setSort} />
                             제목
                         </TableHead>
-                        <TableHead className="text-center w-2/5 md:w-1/5 pr-5 py-3">
+                        <TableHead className="text-center w-2/5 md:w-1/5 h-[50px]">
                             작성일
                         </TableHead>
                     </TableRow>
                 </TableHeader>
                 {filteredPosts.length > 0 ? (
                     <TableBody>
-                        {filteredPosts.map((post) => (
+                        {sortedPosts.map((post) => (
                             <TableRow key={post.id}>
-                                <TableCell className="font-medium text-center hover:cursor-pointer hover:font-bold">
+                                <TableCell className="text-center w-3/5 md:w-4/5 h-[45px] pl-8">
                                     <DeletePost id={post.id} />
-                                    <Link
-                                        href={`/blog/${post.id}`}
-                                        className="px-4 py-1 md:px-20"
-                                    >
+                                    <Link href={`/blog/${post.id}`}>
                                         {post.title.length > maxLength
                                             ? post.title.slice(0, maxLength) +
                                               '...'
                                             : post.title}
-                                        {/* 길이가 maxLength보다 길면 maxLength만큼만 보여주고 나머지는 ...으로 표시 */}
                                     </Link>
                                 </TableCell>
-                                <TableCell className="text-center pr-5">
+                                <TableCell className="text-center w-2/5 md:w-1/5 h-[45px]">
                                     {post.created_at
                                         .split(' ')
                                         .slice(0, 3)

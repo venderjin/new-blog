@@ -59,6 +59,7 @@ export default function DeletePost({ id }: DeletePostProps) {
                     <AlertDialogAction
                         className="bg-red-600"
                         onClick={handleDeletePost}
+                        
                     >
                         삭제
                     </AlertDialogAction>

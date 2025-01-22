@@ -1,4 +1,4 @@
-export default async function HomeLayout({
+export default function blogPostLayout({
     children,
 }: {
     children: React.ReactNode
