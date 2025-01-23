@@ -1,5 +1,5 @@
-import PostHeader from '@/components/pages/post/PostHeader'
-import MainPost from '@/components/pages/post/MainPost'
+import PostHeader from '@/components/pages/post/blog/PostHeader'
+import MainPost from '@/components/pages/post/blog/MainPost'
 
 export default async function BlogPostPage({
     params,

@@ -4,6 +4,7 @@ import {
     AlertDialogAction,
     AlertDialogCancel,
     AlertDialogContent,
+    AlertDialogDescription,
     AlertDialogFooter,
     AlertDialogHeader,
     AlertDialogTitle,
@@ -36,6 +37,9 @@ export default function UpdatePost({
                     <AlertDialogTitle>
                         게시글을 수정하시겠습니까?
                     </AlertDialogTitle>
+                    <AlertDialogDescription>
+                        게시글을 수정하시려면 &apos;수정&apos;을 클릭하세요.
+                    </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                     <AlertDialogCancel>취소</AlertDialogCancel>

@@ -1,7 +1,7 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import backgrounImage from '../../../../public/assets/blog_background_image.jpg'
-import Link from 'next/link'
 
 export default function HomeMainImage() {
     const src = backgrounImage

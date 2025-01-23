@@ -1,3 +1,6 @@
+import WritePostHeader from '@/components/pages/post/write/WritePostHeader'
+import EditPost from '@/components/pages/post/write/EditPost'
+
 export default async function UpdatePostPage({
     params,
 }: {
@@ -6,9 +9,9 @@ export default async function UpdatePostPage({
     const { postId } = await params
 
     return (
-        <div className="flex flex-col pt-3">
-            <h1 className="text-2xl font-bold">Edit Post</h1>
-            <p>postId : {postId}</p>
+        <div className="flex flex-col">
+            <WritePostHeader title="글 수정하기" />
+            <EditPost postId={Number(postId)} />
         </div>
     )
 }

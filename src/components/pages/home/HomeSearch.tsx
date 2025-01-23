@@ -48,6 +48,7 @@ export default function HomeSearch({ search, onChange }: HomeSearchProps) {
                         width={22}
                         height={22}
                         className="cursor-pointer"
+                        priority
                     />
                 </div>
                 <div
@@ -60,6 +61,7 @@ export default function HomeSearch({ search, onChange }: HomeSearchProps) {
                         width={22}
                         height={22}
                         className="cursor-pointer"
+                        priority
                     />
                 </div>
             </div>

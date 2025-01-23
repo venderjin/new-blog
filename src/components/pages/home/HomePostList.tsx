@@ -40,21 +40,40 @@ export default function BoardList({ search }: { search: string }) {
         return () => window.removeEventListener('resize', handleResize)
     }, [])
 
-    // 정렬 로직
-    const parseDate = (dateString: string) =>
-        new Date(
-            dateString
-                .replace(/[년월]/g, '-')
-                .replace('일', '')
-                .trim(),
-        ).getTime()
+    /// 날짜 문자열을 Date 객체로 변환하는 함수
+    const parseDate = (dateString: string) => {
+        // 날짜 문자열을 '. ' 기준으로 분할
+        const parts = dateString.split('. ')
 
+        const year = parseInt(parts[0], 10) // 연도
+        const month = parseInt(parts[1], 10) - 1 // 월 (0부터 시작)
+        const day = parseInt(parts[2], 10) // 일
+
+        // 오전/오후 처리 및 시간 분리
+        const timeParts = parts[3].split(' ')
+        const isPM = timeParts[0] === '오후'
+        const [hours, minutes, seconds] = timeParts[1].split(':').map(Number)
+
+        // 12시간제 처리
+        const formattedHours = isPM ? (hours % 12) + 12 : hours % 12
+
+        return new Date(
+            year,
+            month,
+            day,
+            formattedHours,
+            minutes,
+            seconds,
+        ).getTime()
+    }
+
+    // 정렬 로직
     const sortedPosts = [...filteredPosts].sort((a, b) => {
         switch (sort) {
             case 'basic':
                 return a.id - b.id // 기본순 (ID 오름차순)
             case 'latest':
-                return parseDate(b.created_at) - parseDate(a.created_at) // 최신순
+                return parseDate(b.created_at) - parseDate(a.created_at) // 최신순 (작성일 내림차순)
             case 'title':
                 return a.title.localeCompare(b.title) // 제목순 (가나다순)
             default:

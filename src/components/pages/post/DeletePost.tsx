@@ -55,6 +55,7 @@ export default function DeletePost({
                         width={20}
                         height={20}
                         className="cursor-pointer"
+                        priority
                     />
                 </button>
             </AlertDialogTrigger>

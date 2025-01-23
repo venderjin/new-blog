@@ -3,7 +3,7 @@
 import React, { useState } from 'react'
 
 import HomeSearch from '@/components/pages/home/HomeSearch'
-import PostList from '@/components/pages/post/PostList'
+import PostList from '@/components/pages/post/blog/PostList'
 import Home from '@/components/images/Home'
 
 export default function PostHeader({ postId }: { postId: number }) {

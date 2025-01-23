@@ -1,14 +1,13 @@
 'use client'
+import { useEffect, useState } from 'react'
 
-import { useState } from 'react'
-
-import WritePostHeader from '@/components/pages/post/write/WritePostHeader'
+import { usePostStore } from '@/store/usePostStore'
 import WritePost from '@/components/pages/post/write/WritePost'
 import SavePost from '@/components/pages/post/write/SavePost'
 
-export default function WritePostPage() {
-    const [title, setTitle] = useState<string>('')
-    const [content, setContent] = useState<string>('')
+export default function EditPost({ postId }: { postId: number }) {
+    const [title, setTitle] = useState<string>('...로딩중')
+    const [content, setContent] = useState<string>('...로딩중')
 
     const onChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
         setTitle(e.target.value)
@@ -18,9 +17,20 @@ export default function WritePostPage() {
         setContent(e.target.value)
     }
 
+    // zustand 상태에서 게시물 목록 가져오기
+    const post = usePostStore((state) => state.posts).filter(
+        (post) => post.id === postId,
+    )[0]
+
+    useEffect(() => {
+        if (post) {
+            setTitle(post.title || '...로딩중')
+            setContent(post.content || '...로딩중')
+        }
+    }, [postId, post])
+
     return (
-        <div className="flex flex-col">
-            <WritePostHeader title="글쓰기" />
+        <>
             <WritePost
                 title={title}
                 content={content}
@@ -28,12 +38,13 @@ export default function WritePostPage() {
                 onChangeContent={onChangeContent}
             />
             <SavePost
+                postId={postId}
                 title={title}
                 content={content}
                 onChangeTitle={onChangeTitle}
                 onChangeContent={onChangeContent}
-                type="POST"
+                type="UPDATE"
             />
-        </div>
+        </>
     )
 }

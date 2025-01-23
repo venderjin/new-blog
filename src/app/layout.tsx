@@ -32,9 +32,7 @@ export default function RootLayout({
     return (
         <html lang="ko" className={`${pretendard.variable}`}>
             <body className={pretendard.className}>
-                <main className="w-full h-dvh md:max-w-[900px] mx-auto overflow-auto">
-                    {children}
-                </main>
+                {children}
                 <Toaster />
             </body>
         </html>
