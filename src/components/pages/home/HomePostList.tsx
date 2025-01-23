@@ -14,10 +14,13 @@ import {
 } from '@/components/ui/table'
 
 import { usePostStore } from '@/store/usePostStore'
+import { LoadPostsOnMount } from '@/components/pages/LoadPostsOnMount'
 
 export default function BoardList({ search }: { search: string }) {
     const [maxLength, setMaxLength] = useState(20)
     const [sort, setSort] = useState<string>('basic')
+
+    const isLoading = LoadPostsOnMount()
 
     const posts = usePostStore((state) => state.posts)
     const filteredPosts = posts.filter((post) =>
@@ -58,14 +61,9 @@ export default function BoardList({ search }: { search: string }) {
                 return 0
         }
     })
+
     return (
-        <div className="w-full max-h-[calc(100dvh-320px)] overflow-y-auto">
-            <style jsx>{`
-                div::-webkit-scrollbar {
-                    display: none;
-                }
-                // Hide scrollbar for IE, Edge and Firefox
-            `}</style>
+        <div className="w-full max-h-[calc(100dvh-320px)] overflow-y-auto pb-10">
             <Table>
                 <TableHeader>
                     <TableRow>
@@ -78,39 +76,59 @@ export default function BoardList({ search }: { search: string }) {
                         </TableHead>
                     </TableRow>
                 </TableHeader>
-                {filteredPosts.length > 0 ? (
-                    <TableBody>
-                        {sortedPosts.map((post) => (
-                            <TableRow key={post.id}>
-                                <TableCell className="text-center w-3/5 md:w-4/5 h-[45px] pl-8">
-                                    <DeletePost id={post.id} />
-                                    <Link href={`/blog/${post.id}`}>
-                                        {post.title.length > maxLength
-                                            ? post.title.slice(0, maxLength) +
-                                              '...'
-                                            : post.title}
-                                    </Link>
-                                </TableCell>
-                                <TableCell className="text-center w-2/5 md:w-1/5 h-[45px]">
-                                    {post.created_at
-                                        .split(' ')
-                                        .slice(0, 3)
-                                        .join(' ')}
-                                </TableCell>
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                ) : (
+                {!isLoading ? (
                     <TableBody>
                         <TableRow>
                             <TableCell
                                 colSpan={2}
                                 className="text-center bg-gray-100 text-gray-500"
                             >
-                                게시물이 없습니다.
+                                게시물 로딩중입니다.
                             </TableCell>
                         </TableRow>
                     </TableBody>
+                ) : (
+                    <>
+                        {filteredPosts.length > 0 ? (
+                            <TableBody>
+                                {sortedPosts.map((post) => (
+                                    <TableRow key={post.id}>
+                                        <TableCell className="text-center w-3/5 md:w-4/5 h-[45px] pl-8">
+                                            <DeletePost
+                                                postId={post.id}
+                                                buttonClassName="absolute left-3 md:left-15 px-2 hover:opacity-80 opacity-40"
+                                            />
+                                            <Link href={`/blog/${post.id}`}>
+                                                {post.title.length > maxLength
+                                                    ? post.title.slice(
+                                                          0,
+                                                          maxLength,
+                                                      ) + '...'
+                                                    : post.title}
+                                            </Link>
+                                        </TableCell>
+                                        <TableCell className="text-center w-2/5 md:w-1/5 h-[45px]">
+                                            {post.created_at
+                                                .split(' ')
+                                                .slice(0, 3)
+                                                .join(' ')}
+                                        </TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        ) : (
+                            <TableBody>
+                                <TableRow>
+                                    <TableCell
+                                        colSpan={2}
+                                        className="text-center bg-gray-100 text-gray-500"
+                                    >
+                                        게시물이 없습니다.
+                                    </TableCell>
+                                </TableRow>
+                            </TableBody>
+                        )}
+                    </>
                 )}
             </Table>
         </div>

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePostStore } from '@/store/usePostStore'
+import { LoadPostsOnMount } from '@/components/pages/LoadPostsOnMount'
 
 import {
     Table,
@@ -24,10 +25,13 @@ export default function PostList({
     postId,
 }: {
     search: string
-    postId: string
+    postId: number
 }) {
     // 제목의 최대 길이를 조절하는 상태
     const [maxLength, setMaxLength] = useState(20)
+
+    // 게시물 목록을 가져오는 함수
+    const isLoading = LoadPostsOnMount()
 
     // zustand 상태에서 게시물 목록 가져오기
     const posts = usePostStore((state) => state.posts)
@@ -39,10 +43,9 @@ export default function PostList({
 
     // postId가 있는 페이지를 찾는 함수
     useEffect(() => {
-        console.log('postId:', postId)
         if (postId) {
             const targetIndex = filteredPosts.findIndex(
-                (post) => post.id === Number(postId),
+                (post) => post.id === postId,
             )
             if (targetIndex !== -1) {
                 setCurrentPage(Math.floor(targetIndex / postsPerPage) + 1)
@@ -117,46 +120,65 @@ export default function PostList({
                             </TableHead>
                         </TableRow>
                     </TableHeader>
-                    {filteredPosts.length > 0 ? (
-                        <TableBody>
-                            {currentPosts.map((post) => (
-                                <TableRow key={post.id}>
-                                    <TableCell
-                                        className={`${
-                                            post.id === Number(postId)
-                                                ? 'underline font-medium'
-                                                : ''
-                                        } text-center w-3/5 md:w-4/5 h-[40px]`}
-                                    >
-                                        <Link href={`/blog/${post.id}`} shallow>
-                                            {post.title.length > maxLength
-                                                ? post.title.slice(
-                                                      0,
-                                                      maxLength,
-                                                  ) + '...'
-                                                : post.title}
-                                        </Link>
-                                    </TableCell>
-                                    <TableCell className="text-center w-2/5 md:w-1/5 h-[40px]">
-                                        {post.created_at
-                                            .split(' ')
-                                            .slice(0, 3)
-                                            .join(' ')}
-                                    </TableCell>
-                                </TableRow>
-                            ))}
-                        </TableBody>
-                    ) : (
+                    {!isLoading ? (
                         <TableBody>
                             <TableRow>
                                 <TableCell
                                     colSpan={2}
                                     className="text-center bg-gray-100 text-gray-500"
                                 >
-                                    게시물이 없습니다.
+                                    게시물 로딩중입니다.
                                 </TableCell>
                             </TableRow>
                         </TableBody>
+                    ) : (
+                        <>
+                            {filteredPosts.length > 0 ? (
+                                <TableBody>
+                                    {currentPosts.map((post) => (
+                                        <TableRow key={post.id}>
+                                            <TableCell
+                                                className={`${
+                                                    post.id === postId
+                                                        ? 'underline font-medium'
+                                                        : ''
+                                                } text-center w-3/5 md:w-4/5 h-[40px]`}
+                                            >
+                                                <Link
+                                                    href={`/blog/${post.id}`}
+                                                    shallow
+                                                >
+                                                    {post.title.length >
+                                                    maxLength
+                                                        ? post.title.slice(
+                                                              0,
+                                                              maxLength,
+                                                          ) + '...'
+                                                        : post.title}
+                                                </Link>
+                                            </TableCell>
+                                            <TableCell className="text-center w-2/5 md:w-1/5 h-[40px]">
+                                                {post.created_at
+                                                    .split(' ')
+                                                    .slice(0, 3)
+                                                    .join(' ')}
+                                            </TableCell>
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            ) : (
+                                <TableBody>
+                                    <TableRow>
+                                        <TableCell
+                                            colSpan={2}
+                                            className="text-center bg-gray-100 text-gray-500"
+                                        >
+                                            게시물이 없습니다.
+                                        </TableCell>
+                                    </TableRow>
+                                </TableBody>
+                            )}
+                        </>
                     )}
                 </Table>
             </div>

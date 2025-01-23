@@ -1,9 +1,18 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
 
 export default function Home() {
-    const size = window.innerWidth > 768 ? 40 : 30
+    // 화면 크기 상태를 관리
+    const [size, setSize] = useState<number>(30)
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            // 클라이언트 사이드에서만 window 접근 가능
+            setSize(window.innerWidth > 768 ? 40 : 30)
+        }
+    }, [])
 
     const router = useRouter()
 

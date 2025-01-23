@@ -1,5 +1,5 @@
-// import { Suspense } from 'react'
 import PostHeader from '@/components/pages/post/PostHeader'
+import MainPost from '@/components/pages/post/MainPost'
 
 export default async function BlogPostPage({
     params,
@@ -10,8 +10,8 @@ export default async function BlogPostPage({
 
     return (
         <div className="flex flex-col pt-3">
-            <PostHeader postId={postId} />
-            <h1>Post ID: {postId}</h1>
+            <PostHeader postId={Number(postId)} />
+            <MainPost postId={Number(postId)} />
         </div>
     )
 }
