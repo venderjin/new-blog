@@ -26,7 +26,7 @@ export default function MainPost({ postId }: { postId: number }) {
     )[0]
 
     return (
-        <div className="flex flex-col">
+        <div className="flex flex-col w-full md:max-w-[1200px]">
             {!isLoading ? (
                 <div>loading...</div>
             ) : (
@@ -48,9 +48,14 @@ export default function MainPost({ postId }: { postId: number }) {
                                     buttonClassName="w-[50px] h-[40px] bg-muted rounded-md flex justify-center items-center md:opacity-60 hover:opacity-100"
                                 />
                             </div>
-                            <div className="">
+                            <div>
                                 <Button className="rounded-full w-[100px] h-[40px] text-white">
-                                    <Link href="/write">새 글쓰기</Link>
+                                    <Link
+                                        href="/write"
+                                        className="w-full h-full"
+                                    >
+                                        새 글쓰기
+                                    </Link>
                                 </Button>
                             </div>
                         </CardFooter>

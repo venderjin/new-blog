@@ -102,7 +102,7 @@ export default function SavePost({
         }
     }
     return (
-        <div className="px-5 py-2">
+        <div className="px-5 py-2 md:max-w-[1200px] w-full">
             <Button
                 onClick={() => handleSave(type)}
                 className="w-full h-[50px] text-lg font-bold"

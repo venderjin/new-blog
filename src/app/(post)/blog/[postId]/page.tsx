@@ -9,7 +9,7 @@ export default async function BlogPostPage({
     const { postId } = await params
 
     return (
-        <div className="flex flex-col pt-3">
+        <div className="flex flex-col w-full items-center">
             <PostHeader postId={Number(postId)} />
             <MainPost postId={Number(postId)} />
         </div>

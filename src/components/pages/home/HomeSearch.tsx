@@ -32,11 +32,11 @@ export default function HomeSearch({ search, onChange }: HomeSearchProps) {
     }
 
     return (
-        <div className="h-[70px] relative w-full flex items-center justify-center px-4">
+        <div className="relative w-full flex items-center justify-center px-4 h-[60px] md:h-[80px]">
             <div className="relative w-full">
                 <input
                     type="text"
-                    className="h-[45px] w-full rounded-full bg-white px-12 text-gray-700 text-sm focus:outline-none shadow-md "
+                    className="h-[40px] md:h-[50px] w-full rounded-full bg-white px-12 text-gray-700 text-sm focus:outline-none shadow-md "
                     placeholder="제목을 입력하세요"
                     value={search}
                     onChange={onChange}

@@ -31,7 +31,7 @@ export default function WritePost({
     }
 
     return (
-        <div className="p-5 flex flex-col space-y-5">
+        <div className="p-5 flex flex-col space-y-5 md:max-w-[1200px] w-full">
             <div className="relative flex flex-row items-center justify-between">
                 <div className="space-y-2 w-full">
                     <Label htmlFor="title" className="font-medium text-lg pl-2">

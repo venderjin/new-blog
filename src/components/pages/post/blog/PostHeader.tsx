@@ -14,12 +14,16 @@ export default function PostHeader({ postId }: { postId: number }) {
     }
 
     return (
-        <div className="flex flex-col justify-center h-[310px]">
-            <div className="flex flex-row items-center justify-center">
-                <Home />
-                <HomeSearch search={search} onChange={onChange} />
+        <div className="flex flex-col h-[310px] w-full">
+            <div className="bg-black flex flex-col items-center">
+                <div className="flex flex-row items-center justify-center w-full md:max-w-[1200px] bg-black h-[60px] md:h-[80px]">
+                    <Home />
+                    <HomeSearch search={search} onChange={onChange} />
+                </div>
             </div>
-            <PostList search={search} postId={postId} />
+            <div className="bg-white flex flex-col items-center">
+                <PostList search={search} postId={postId} />
+            </div>
         </div>
     )
 }

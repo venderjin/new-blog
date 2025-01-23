@@ -82,7 +82,7 @@ export default function BoardList({ search }: { search: string }) {
     })
 
     return (
-        <div className="w-full max-h-[calc(100dvh-320px)] overflow-y-auto pb-10">
+        <div className="w-full max-h-[calc(100dvh-310px)] md:max-h-[calc(100dvh-330px)] overflow-y-auto pb-10">
             <Table>
                 <TableHeader>
                     <TableRow>

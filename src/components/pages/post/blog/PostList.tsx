@@ -48,7 +48,6 @@ export default function PostList({
     // 검색어를 포함하는 게시물 필터링
     useEffect(() => {
         if (posts.length > 0 && search.trim() !== '') {
-            console.log('filtering')
             setFilteredPosts(
                 posts.filter((post) =>
                     post.title
@@ -118,7 +117,7 @@ export default function PostList({
     }
 
     return (
-        <div className="flex flex-col justify-start h-[240px]">
+        <div className="flex flex-col justify-start h-[240px] w-full md:max-w-[1200px]">
             {/* 테이블 영역 */}
             <div className="h-[185px] bg-muted shadow-sm">
                 <Table className="bg-white">
@@ -193,7 +192,7 @@ export default function PostList({
 
             {/* 페이지네이션 영역 */}
             {totalPages > 1 && (
-                <div className="flex justify-center items-center h-[50px] my-[5px]">
+                <div className="flex justify-center items-center h-[55px] bg-white">
                     <Pagination>
                         <PaginationContent>
                             {/* 이전 페이지 버튼 */}

@@ -27,7 +27,7 @@ export default function Home() {
             >
                 <path
                     d="M10.3104 0.499359L0.929798 7.53483H3.27496V16.9155H7.96527V12.2252H12.6556V16.9155H17.3459V7.46448L19.6911 7.53483L10.3104 0.499359Z"
-                    fill="black"
+                    fill="white"
                 />
             </svg>
         </div>

@@ -9,7 +9,7 @@ export default async function UpdatePostPage({
     const { postId } = await params
 
     return (
-        <div className="flex flex-col">
+        <div className="flex flex-col items-center w-full h-full">
             <WritePostHeader title="글 수정하기" />
             <EditPost postId={Number(postId)} />
         </div>

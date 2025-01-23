@@ -19,7 +19,7 @@ export default function WritePostPage() {
     }
 
     return (
-        <div className="flex flex-col">
+        <div className="flex flex-col items-center w-full h-full">
             <WritePostHeader title="글쓰기" />
             <WritePost
                 title={title}
