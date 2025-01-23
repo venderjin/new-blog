@@ -52,21 +52,12 @@
 
 
 ## 3️⃣사용한 ShadCN 컴포넌트 목록
-### **🔔알림**
-- **`Toast`** 
-- **`Alert Dialog`** 
-
-### **👁️‍🗨️조회**
-- **`Table`** :  
-- **`Card`** :  
-- **`Pagination`** :  
-- **`Dropdown Menu`** :  
-
-### **✍️입력**
-- **`Button`** :  
-- **`Label`** :  
-- **`Input`** :  
-- **`Textarea`** :  
+| **🔔알림** | **👁️‍🗨️조회**| **✍️입력**|
+| --- | --- | --- |
+| **Toast** | **Table** | **Button** |
+| **Alert Dialog** | **Card** | **Label** |
+|  | **Pagination** | **Input** |   
+|  | **Dropdown Menu** | **Textarea** |   
 
 
 ---
