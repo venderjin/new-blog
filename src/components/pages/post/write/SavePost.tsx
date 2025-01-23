@@ -56,18 +56,29 @@ export default function SavePost({
             return
         }
 
-        // 게시물 포스팅팅
+        // 게시물 포스팅
         if (type === 'POST') {
             addPost({
-                id: posts[posts.length - 1].id + 1,
+                id: posts.length > 0 ? posts[posts.length - 1].id + 1 : 1, // posts 배열이 비어있는 경우 대비
                 title,
                 content,
                 created_at: new Date().toLocaleString(),
             })
 
-            router.push(`/blog/${posts[posts.length - 1].id + 1}`)
+            // 성공 메시지 표시
+            toast({
+                title: '게시물 등록 완료',
+                description: '게시물이 성공적으로 추가되었습니다.',
+                duration: 3000,
+                variant: 'success',
+            })
+
+            // 약간의 지연 후 홈으로 이동
+            setTimeout(() => {
+                router.push('/')
+            }, 500) // 500ms 후 페이지 이동
         }
-        // 게시물 업데이트트
+        // 게시물 업데이트
         else if (type === 'UPDATE' && postId) {
             updatePost(postId, {
                 id: postId,
@@ -75,7 +86,19 @@ export default function SavePost({
                 content,
                 created_at: new Date().toLocaleString(),
             })
-            router.push(`/blog/${postId}`)
+
+            // 성공 메시지 표시
+            toast({
+                title: '게시물 수정 완료',
+                description: '게시물이 성공적으로 수정되었습니다.',
+                duration: 3000,
+                variant: 'success',
+            })
+
+            // 약간의 지연 후 홈으로 이동
+            setTimeout(() => {
+                router.push('/')
+            }, 500) // 500ms 후 페이지 이동
         }
     }
     return (

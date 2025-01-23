@@ -17,21 +17,21 @@ import { usePostStore } from '@/store/usePostStore'
 import { LoadPostsOnMount } from '@/components/pages/LoadPostsOnMount'
 
 export default function BoardList({ search }: { search: string }) {
-    const [maxLength, setMaxLength] = useState(20)
+    const [maxLength, setMaxLength] = useState(0)
     const [sort, setSort] = useState<string>('basic')
 
     const isLoading = LoadPostsOnMount()
 
     const posts = usePostStore((state) => state.posts)
     const filteredPosts = posts.filter((post) =>
-        post.title.includes(search.trim()),
+        post.title.toLowerCase().includes(search.trim().toLowerCase()),
     )
 
     useEffect(() => {
         if (typeof window === 'undefined') return
 
         const handleResize = () =>
-            setMaxLength(window.innerWidth > 768 ? 50 : 12)
+            setMaxLength(window.innerWidth > 768 ? 100 : 30)
 
         // 초기 설정 및 리스너 추가
         handleResize()
@@ -86,11 +86,13 @@ export default function BoardList({ search }: { search: string }) {
             <Table>
                 <TableHeader>
                     <TableRow>
-                        <TableHead className="text-center w-3/5 md:w-4/5 h-[50px] pl-8">
+                        <TableHead className="text-center w-[15%] md:w-[10%] h-[50px]">
                             <SortPost sort={sort} setSort={setSort} />
+                        </TableHead>
+                        <TableHead className="text-center w-[55%] md:w-[70%] h-[50px]">
                             제목
                         </TableHead>
-                        <TableHead className="text-center w-2/5 md:w-1/5 h-[50px]">
+                        <TableHead className="text-center w-[30%] md:w-[20%] h-[50px]">
                             작성일
                         </TableHead>
                     </TableRow>
@@ -99,7 +101,7 @@ export default function BoardList({ search }: { search: string }) {
                     <TableBody>
                         <TableRow>
                             <TableCell
-                                colSpan={2}
+                                colSpan={3}
                                 className="text-center bg-gray-100 text-gray-500"
                             >
                                 게시물 로딩중입니다.
@@ -112,12 +114,17 @@ export default function BoardList({ search }: { search: string }) {
                             <TableBody>
                                 {sortedPosts.map((post) => (
                                     <TableRow key={post.id}>
-                                        <TableCell className="text-center w-3/5 md:w-4/5 h-[45px] pl-8">
+                                        <TableCell className="h-[45px] p-1">
                                             <DeletePost
                                                 postId={post.id}
-                                                buttonClassName="absolute left-3 md:left-15 px-2 hover:opacity-80 opacity-40"
+                                                buttonClassName="hover:opacity-80 opacity-40 flex justify-center items-center w-full h-full"
                                             />
-                                            <Link href={`/blog/${post.id}`}>
+                                        </TableCell>
+                                        <TableCell className="h-[45px] p-1">
+                                            <Link
+                                                href={`/blog/${post.id}`}
+                                                className="w-full h-full flex items-center justify-center"
+                                            >
                                                 {post.title.length > maxLength
                                                     ? post.title.slice(
                                                           0,
@@ -126,7 +133,7 @@ export default function BoardList({ search }: { search: string }) {
                                                     : post.title}
                                             </Link>
                                         </TableCell>
-                                        <TableCell className="text-center w-2/5 md:w-1/5 h-[45px]">
+                                        <TableCell className="text-center h-[45px] p-1">
                                             {post.created_at
                                                 .split(' ')
                                                 .slice(0, 3)
@@ -139,7 +146,7 @@ export default function BoardList({ search }: { search: string }) {
                             <TableBody>
                                 <TableRow>
                                     <TableCell
-                                        colSpan={2}
+                                        colSpan={3}
                                         className="text-center bg-gray-100 text-gray-500"
                                     >
                                         게시물이 없습니다.

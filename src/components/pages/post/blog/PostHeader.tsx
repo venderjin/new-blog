@@ -14,7 +14,7 @@ export default function PostHeader({ postId }: { postId: number }) {
     }
 
     return (
-        <div className="flex flex-col justify-center h-[280px] shadow-sm">
+        <div className="flex flex-col justify-center h-[310px]">
             <div className="flex flex-row items-center justify-center">
                 <Home />
                 <HomeSearch search={search} onChange={onChange} />

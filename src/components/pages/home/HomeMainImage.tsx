@@ -16,8 +16,10 @@ export default function HomeMainImage() {
                 priority
             />
             <div className="absolute inset-0 flex flex-row items-end justify-between p-5 bg-black bg-opacity-50">
-                <Button className="rounded-full w-[80px] h-[40px] text-white ">
-                    <Link href="/write">글쓰기</Link>
+                <Button className="rounded-full w-[80px] h-[40px] text-white">
+                    <Link href="/write" className="w-full h-full">
+                        글쓰기
+                    </Link>
                 </Button>
                 <div className="w-[250px] text-end text-white font-bold text-3xl lg:text-4xl tracking-wide">
                     My Blog
