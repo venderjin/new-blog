@@ -4,8 +4,9 @@ import React, { useState } from 'react'
 
 import HomeSearch from '@/components/pages/home/HomeSearch'
 import PostList from '@/components/pages/post/PostList'
+import Home from '@/components/images/Home'
 
-export default function PostHeader() {
+export default function PostHeader({ postId }: { postId: string }) {
     const [search, setSearch] = useState<string>('')
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -13,9 +14,12 @@ export default function PostHeader() {
     }
 
     return (
-        <div className="flex flex-col justify-center h-[300px]">
-            <HomeSearch search={search} onChange={onChange} />
-            <PostList search={search} />
+        <div className="flex flex-col justify-center h-[280px]">
+            <div className="flex flex-row items-center justify-center">
+                <Home />
+                <HomeSearch search={search} onChange={onChange} />
+            </div>
+            <PostList search={search} postId={postId} />
         </div>
     )
 }

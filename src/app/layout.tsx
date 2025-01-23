@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next'
 import localFont from 'next/font/local'
 import { Toaster } from '@/components/ui/toaster'
+import { LoadPostsOnMount } from '@/store/usePostStore'
 import './globals.css'
 
 //모바일 input 확대 방지
@@ -32,6 +33,7 @@ export default function RootLayout({
     return (
         <html lang="ko" className={`${pretendard.variable}`}>
             <body className={pretendard.className}>
+                <LoadPostsOnMount />
                 {children}
                 <Toaster />
             </body>
